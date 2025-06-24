@@ -2,6 +2,7 @@
 
 import './globals.css';
 import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner"
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ModeToggle";
 import { NavigationMenuDemo } from "@/components/NavBar";
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Main Content */}
           <main className="min-h-screen">{children}</main>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );
