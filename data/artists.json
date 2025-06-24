@@ -1,0 +1,57 @@
+[
+    {
+      "id": 1,
+      "name": "John",
+      "category": "Singer",
+      "priceStart": 5000,
+      "priceEnd": 10000,
+      "location": "Mumbai"
+    },
+
+    {
+      "id": 2,
+      "name": "Priya",
+      "category": "Dancer",
+      "priceStart": 8000,
+      "priceEnd": 15000,
+      "location": "Delhi"
+    },
+    {
+      "id": 3,
+      "name": "Ajay",
+      "category": "Rap",
+      "priceStart": 34000,
+      "priceEnd": 45000,
+      "location": "Bangalore"
+    },
+    {
+      "id": 4,
+      "name": "Vijay",
+      "category": "Dancer",
+      "priceStart": 90000,
+      "priceEnd": 350000,
+      "location": "Malaysia"
+    },
+    {
+      "id": 5,
+      "name": "Bravo",
+      "category": "DJ",
+      "priceStart": 120000,
+      "priceEnd": 150000 ,
+      "location": "Delhi"
+    },
+    {
+      "id": 6,
+      "name": "Pop Khan",
+      "category": "Singer",
+      "priceStart": 15000,
+      "priceEnd": 25000,
+      "location": "Mumbai"
+    }
+
+    
+  ]
+  
+
+
+  
