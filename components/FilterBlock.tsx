@@ -15,38 +15,31 @@ import {
 interface FilterBlockProps {
   categories?: string[];
   locations?: string[];
+  languages?: string[];
   priceStarts?: number[];
   priceEnds?: number[];
+  
 
   onFilterChange: (filters: {
     category?: string;
     location?: string;
+    language?: string;
     priceStart?: number;
     priceEnd?: number;
   }) => void;
 }
 
-type cardProps={
-  category:string;
-  location:string;
-  priceStart: number;
-  priceEnd: number;
-}
 
-export default function FilterBlock({
-  categories = [],
-  locations = [],
-  priceStarts = [],
-  priceEnds = [],
-  onFilterChange,
-}: FilterBlockProps) {
+export default function FilterBlock({categories = [],locations = [],languages= [],priceStarts = [],priceEnds = [],onFilterChange,}: FilterBlockProps) {
   const [category, setCategory] = useState('');
   const [location, setLocation] = useState('');
+  const [language, setLanguage] = useState('');
   const [priceStart, setPriceStart] = useState<number | undefined>();
   const [priceEnd, setPriceEnd] = useState<number | undefined>();
+  
 
   const handleFilter = () => {
-    onFilterChange({ category, location, priceStart, priceEnd });
+    onFilterChange({ category, location, language, priceStart, priceEnd });
   };
 
   return (
@@ -84,6 +77,25 @@ export default function FilterBlock({
             {locations.map((loc,ind) => (
               <option key={ind} value={loc}>
                 {loc}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+      
+       {/* Language Dropdown */}
+       {locations.length > 0 && (
+        <div>
+          <label className="block mb-1 text-sm font-medium">Language</label>
+          <select
+            className="w-full border rounded px-3 py-2 text-sm"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <option value="">All</option>
+            {languages.map((lang,ind) => (
+              <option key={ind} value={lang}>
+                {lang}
               </option>
             ))}
           </select>

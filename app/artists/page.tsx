@@ -8,6 +8,7 @@ import { CardDemo } from "@/components/CardDemo";
 type cardProps = {
   category?: string;
   location?: string;
+  language?: string;
   priceStart?: number;
   priceEnd?: number;
 };
@@ -43,6 +44,7 @@ export default function ArtistsPage() {
       <FilterBlock
         categories={["Singer", "Dancer", "DJ", "Speaker"]}
         locations={["Mumbai", "Delhi", "Chennai", "Kolkata"]}
+        languages={["Tamil","Kannada","Hindi","Malay","Marathi"]}
         priceStarts={[1000, 5000, 10000, 20000]}
         priceEnds={[50000, 100000, 200000, 500000, 1000000]}
         onFilterChange={handleFilterChange}

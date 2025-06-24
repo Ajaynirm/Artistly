@@ -14,11 +14,12 @@ type cardProps={
   name:string;
   category:string;
   location:string;
+  language:string;
   priceStart: number;
   priceEnd: number;
 }
 
-export function CardDemo({name,category,location,priceStart,priceEnd}: cardProps) {
+export function CardDemo({name,category,location,language, priceStart,priceEnd}: cardProps) {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -30,6 +31,10 @@ export function CardDemo({name,category,location,priceStart,priceEnd}: cardProps
 
       
       </CardHeader>
+
+      <CardContent>
+      <CardTitle>Language: <span className="font-light pl-5">{language}</span> </CardTitle>        
+      </CardContent>
 
       <CardContent>
       <CardTitle>Location: <span className="font-light pl-5">{location}</span> </CardTitle>        
