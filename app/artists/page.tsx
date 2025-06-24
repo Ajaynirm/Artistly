@@ -1,23 +1,26 @@
-'use client';
-
+"use client";
 
 import { useState } from "react";
 import FilterBlock from "@/components/FilterBlock";
 import data from "@/data/artists.json";
 import { CardDemo } from "@/components/CardDemo";
 
-type cardProps={
-  category:string;
-  location:string;
-  priceStart: number;
-  priceEnd: number;
-}
-
+type cardProps = {
+  category?: string;
+  location?: string;
+  priceStart?: number;
+  priceEnd?: number;
+};
 
 export default function ArtistsPage() {
   const [filtered, setFiltered] = useState(data);
 
-  const handleFilterChange = ({ category, location, priceStart,priceEnd }: cardProps) => {
+  const handleFilterChange = ({
+    category,
+    location,
+    priceStart,
+    priceEnd,
+  }: cardProps) => {
     let result = data;
 
     if (category) {
@@ -29,7 +32,7 @@ export default function ArtistsPage() {
     if (priceStart) {
       result = result.filter((a) => a.priceStart <= priceStart);
     }
-    if (priceEnd){
+    if (priceEnd) {
       result = result.filter((a) => a.priceEnd >= priceEnd);
     }
     setFiltered(result);
@@ -40,19 +43,17 @@ export default function ArtistsPage() {
       <FilterBlock
         categories={["Singer", "Dancer", "DJ", "Speaker"]}
         locations={["Mumbai", "Delhi", "Chennai", "Kolkata"]}
-        priceStart={[1000,5000, 10000,20000]}
-        priceEnd={[50000,100000,200000,500000,1000000]}
+        priceStarts={[1000, 5000, 10000, 20000]}
+        priceEnds={[50000, 100000, 200000, 500000, 1000000]}
         onFilterChange={handleFilterChange}
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((artist) => (
-          <CardDemo key={artist.id} {...artist}/>
+          <CardDemo key={artist.id} {...artist} />
         ))}
       </div>
-      <div>
-        
-      </div>
+      <div></div>
     </div>
   );
 }

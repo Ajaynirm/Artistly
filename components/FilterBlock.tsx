@@ -26,6 +26,13 @@ interface FilterBlockProps {
   }) => void;
 }
 
+type cardProps={
+  category:string;
+  location:string;
+  priceStart: number;
+  priceEnd: number;
+}
+
 export default function FilterBlock({
   categories = [],
   locations = [],
@@ -55,8 +62,8 @@ export default function FilterBlock({
             onChange={(e) => setCategory(e.target.value)}
           >
             <option value="">All</option>
-            {categories.map((c) => (
-              <option key={c} value={c}>
+            {categories.map((c,ind) => (
+              <option key={ind} value={c}>
                 {c}
               </option>
             ))}
@@ -74,8 +81,8 @@ export default function FilterBlock({
             onChange={(e) => setLocation(e.target.value)}
           >
             <option value="">All</option>
-            {locations.map((loc) => (
-              <option key={loc} value={loc}>
+            {locations.map((loc,ind) => (
+              <option key={ind} value={loc}>
                 {loc}
               </option>
             ))}
@@ -95,8 +102,8 @@ export default function FilterBlock({
             }
           >
             <option value="">All</option>
-            {priceStarts.map((range: number) => (
-              <option key={range} value={range}>
+            {priceStarts.map((range: number,ind: number) => (
+              <option key={ind} value={range}>
                 {range}
               </option>
             ))}
@@ -116,8 +123,8 @@ export default function FilterBlock({
             }
           >
             <option value="">All</option>
-            {priceEnds.map((range: number) => (
-              <option key={range} value={range}>
+            {priceEnds.map((range: number,ind:number) => (
+              <option key={ind} value={range}>
                 {range}
               </option>
             ))}
@@ -134,3 +141,5 @@ export default function FilterBlock({
     </Card>
   );
 }
+
+
