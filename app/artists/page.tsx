@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import FilterBlock from "@/components/FilterBlock";
 import data from "@/data/artists.json";
-import { CardDemo } from "@/components/CardDemo";
+import { CardDemo } from "@/components/cards/CardDemo";
 import { toast } from "sonner";
 import { AlertDemo } from "@/components/AlertDemo";
 
@@ -19,7 +19,7 @@ export default function ArtistsPage() {
   const [filtered, setFiltered] = useState(data);
   const [filters, setFilters] = useState<cardProps>({}); 
   const handleFilterChange = (newFilters: cardProps) => {
-    setFilters(newFilters); // trigger useEffect by updating filter state
+    setFilters(newFilters); 
   };
 
   useEffect(()=>{

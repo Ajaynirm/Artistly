@@ -3,7 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Loading from "@/app/loading";
@@ -23,8 +23,15 @@ import { Label } from "../ui/label";
 const schema = yup.object({
   name: yup.string().required("Name is required"),
   bio: yup.string().required("Bio is required"),
-  category: yup.array().of(yup.string()).min(1, "Select at least one category"),
-  location: yup.string().required("Location is required"),
+  category: yup
+    .array()
+    .of(yup.string())
+    .typeError("Choose a Category")
+    .min(1, "Select at least one category"),
+  location: yup
+    .string()
+    .typeError("Select Your location")
+    .required("Location is required"),
   feeRangeStart: yup
     .number()
     .typeError("Select a fee start")
@@ -36,6 +43,7 @@ const schema = yup.object({
   languages: yup
     .array()
     .of(yup.string())
+    .typeError("choose a list of language")
     .min(1, "Select at least one language"),
 });
 
@@ -57,10 +65,10 @@ export default function ArtistForm() {
   };
 
   const {
+    control,
     register,
     handleSubmit,
     reset,
-    trigger,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -97,36 +105,39 @@ export default function ArtistForm() {
       className="space-y-6 max-w-xl mx-auto p-4"
     >
       <h2 className="text-2xl font-bold mb-4">Artist Onboarding</h2>
+      {/* test name */}
+
+      {/* test name end*/}
 
       {/* /* Name */}
       <div>
-        <Label className="block mb-1">Name</Label>
+        <Label className="block mb-1 p-2">Name</Label>
         <Input
           placeholder="Name"
           {...register("name")}
           className="input border px-3 py-2 w-full"
         />
         {errors.name && (
-          <p className="text-red-500 text-sm">{errors.name.message}</p>
+          <p className="text-red-500 text-xs mt-1 p-2">{errors.name.message}</p>
         )}
       </div>
 
       {/* /* Bio */}
       <div>
-        <Label className="block mb-1">Tell about the artist</Label>
+        <Label className="block mb-1 p-2">Tell about the artist</Label>
         <Textarea
           placeholder="Add Bio of the Artists..."
           {...register("bio")}
           className="input border px-3 py-2 w-full"
         />
         {errors.bio && (
-          <p className="text-red-500 text-sm">{errors.bio.message}</p>
+          <p className="text-red-500 text-xs mt-1 p-2">{errors.bio.message}</p>
         )}
       </div>
 
       {/* Category */}
       <div className="input border px-3 py-2 w-full">
-        <label className="block mb-1">Category</label>
+        <Label className="block mb-1 p-2">Category</Label>
         <div className="flex flex-wrap gap-2">
           {categories.map((cat) => (
             <label key={cat} className="flex items-center gap-1">
@@ -136,13 +147,15 @@ export default function ArtistForm() {
           ))}
         </div>
         {errors.category && (
-          <p className="text-red-500 text-sm">{errors.category.message}</p>
+          <p className="text-red-500 text-xs mt-1 p-2">
+            {errors.category.message}
+          </p>
         )}
       </div>
 
       {/* Languages */}
       <div className="input border px-3 py-2 w-full">
-        <label className="block mb-1">Languages Spoken</label>
+        <Label className="block mb-1 p-2">Languages Spoken</Label>
         <div className="flex flex-wrap gap-2">
           {languages.map((lang) => (
             <label key={lang} className="flex items-center gap-1">
@@ -152,95 +165,87 @@ export default function ArtistForm() {
           ))}
         </div>
         {errors.languages && (
-          <p className="text-red-500 text-sm">{errors.languages.message}</p>
+          <p className="text-red-500 text-xs mt-1 p-2">
+            {errors.languages.message}
+          </p>
         )}
       </div>
 
       {/* Fee Range Start */}
 
-      {/* <label className="block mb-1">Fee Range Start</label> */}
       <div className="input border px-3 py-2 w-full hidden md:block">
-        {/* <Select {...register("feeRangeStart")}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a start fee" />
-            </SelectTrigger>
-
-             <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Start Fees</SelectLabel>
-                <SelectItem value="">Start fees</SelectItem>
-                {priceStarts.map((range, ind) => (
-                  <SelectItem key={ind} value={String(range)}>
-                    ₹{range}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent> 
+        <Label className="block mb-1 p-2">Fee Range Start</Label>
+        <Controller
+          name="feeRangeStart"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={(value) => field.onChange(parseInt(value))}
+              value={field.value ? String(field.value) : ""}
+            >
+              <SelectTrigger className="w-[500px]">
+                <SelectValue placeholder="Select fee start" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Fee Start Range</SelectLabel>
+                  {priceStarts.map((range) => (
+                    <SelectItem key={range} value={String(range)}>
+                      ₹{range}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
             </Select>
-            */}
-        <label className="block mb-1">Fee Range Start</label>
-        <select
-          {...register("feeRangeStart")}
-          className="input border px-3 py-2 w-full"
-        >
-          <option value="">Select</option>
-
-          {priceStarts.map((range) => (
-            <option key={range} value={range}>
-              ₹{range}
-            </option>
-          ))}
-        </select>
-
+          )}
+        />
         {errors.feeRangeStart && (
-          <p className="text-red-500 text-sm">{errors.feeRangeStart.message}</p>
+          <p className="text-red-500 text-xs mt-1 p-2">
+            {errors.feeRangeStart.message}
+          </p>
         )}
       </div>
 
       {/* Fee Range End */}
       <div className="input border px-3 py-2 w-full hidden md:block">
-        <label className="block mb-1">Fee Range End</label>
-        <select
-          {...register("feeRangeEnd")}
-          className="input border px-3 py-2 w-full"
-        >
-          <option value="">Select</option>
-          {priceEnds.map((range) => (
-            <option key={range} value={range}>
-              ₹{range}
-            </option>
-          ))}
-        </select>
+        <Label className="block mb-1">Fee Range End</Label>
+        <Controller
+          name="feeRangeEnd"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={(value) => field.onChange(parseInt(value))}
+              value={field.value ? String(field.value) : ""}
+            >
+              <SelectTrigger className="w-[500px]">
+                <SelectValue placeholder="Select fee end" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Fee End Range</SelectLabel>
+                  {priceEnds.map((range) => (
+                    <SelectItem key={range} value={String(range)}>
+                      ₹{range}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
         {errors.feeRangeEnd && (
-          <p className="text-red-500 text-sm">{errors.feeRangeEnd.message}</p>
+          <p className="text-red-500 text-xs mt-1 p-2">
+            {errors.feeRangeEnd.message}
+          </p>
         )}
       </div>
 
       {/* fee for mobile screen */}
 
       <div className="input border px-3 py-2 w-full block md:hidden">
-        <Label className="block mb-1">Fee Range </Label>
+        <Label className="block mb-1 p-2">Fee Range </Label>
         <div className="flex flex-row justify-around">
           <div className="input border px-3 py-2 w-40 ">
-            {/* <Select {...register("feeRangeStart")}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a start fee" />
-            </SelectTrigger>
-
-             <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Start Fees</SelectLabel>
-                <SelectItem value="">Start fees</SelectItem>
-                {priceStarts.map((range, ind) => (
-                  <SelectItem key={ind} value={String(range)}>
-                    ₹{range}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent> 
-            </Select>
-            */}
-
             <select
               {...register("feeRangeStart")}
               className="input border px-3 py-2 w-full"
@@ -255,7 +260,7 @@ export default function ArtistForm() {
             </select>
 
             {errors.feeRangeStart && (
-              <p className="text-red-500 text-sm">
+              <p className="text-red-500 text-sm p-2">
                 {errors.feeRangeStart.message}
               </p>
             )}
@@ -284,26 +289,41 @@ export default function ArtistForm() {
 
       {/* Location */}
       <div className="input border px-3 py-2  md:w-full">
-        <Label className="block mb-1">Location</Label>
-        <select
-          {...register("location")}
-          className="input border px-3 py-2 w-full"
-        >
-          <option value="">Select</option>
-          {locations.map((loc) => (
-            <option key={loc} value={loc}>
-              {loc}
-            </option>
-          ))}
-        </select>
+        <Label className="block mb-1 p-2">Location</Label>
+        <Controller
+          name="location"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={(value) => field.onChange(value)}
+              value={field.value ? String(field.value) : ""}
+            >
+              <SelectTrigger className="w-[500px]">
+                <SelectValue placeholder="Select Location" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Location</SelectLabel>
+                  {locations.map((range) => (
+                    <SelectItem key={range} value={range}>
+                      {range}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
         {errors.location && (
-          <p className="text-red-500 text-sm">{errors.location.message}</p>
+          <p className="text-red-500 text-xs mt-1 p-2">
+            {errors.location.message}
+          </p>
         )}
       </div>
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+        className="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition"
       >
         Submit
       </button>
