@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -30,17 +30,37 @@ interface FilterBlockProps {
 }
 
 
-export default function FilterBlock({categories = [],locations = [],languages= [],priceStarts = [],priceEnds = [],onFilterChange,}: FilterBlockProps) {
+export default function FilterBlock({categories = [],locations = [],languages= [],priceStarts = [],priceEnds = [],onFilterChange }: FilterBlockProps) {
   const [category, setCategory] = useState('');
   const [location, setLocation] = useState('');
   const [language, setLanguage] = useState('');
   const [priceStart, setPriceStart] = useState<number | undefined>();
   const [priceEnd, setPriceEnd] = useState<number | undefined>();
-  
+  const [resetting, setResetting] = useState(false);
+
+  useEffect(()=>{
+    if (resetting) {
+      onFilterChange({
+        category: '',
+        location: '',
+        language: '',
+        priceStart: undefined,
+        priceEnd: undefined,
+      });
+      setResetting(false);
+    }
+  },[category, location, language, priceStart, priceEnd,resetting])
 
   const handleFilter = () => {
+    // console.log(category,location,language,priceStart,priceEnd);
     onFilterChange({ category, location, language, priceStart, priceEnd });
   };
+  const handleReset = () =>{
+    setCategory('');setLocation('');
+    setLanguage('');setPriceStart(undefined);setPriceEnd(undefined);
+    setResetting(true);
+    handleFilter();
+  }
 
   return (
     <Card className="w-full max-w-sm p-2 ">
@@ -149,6 +169,12 @@ export default function FilterBlock({categories = [],locations = [],languages= [
         className="w-full bg-blue-600 text-white py-2 text-sm rounded hover:bg-blue-700 transition"
       >
         Apply Filters
+      </button>
+      <button
+        onClick={handleReset}
+        className="w-full bg-red-600 text-white py-2 text-sm rounded hover:bg-red-700 transition"
+      >
+        Remove Filters
       </button>
     </Card>
   );

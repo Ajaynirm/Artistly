@@ -1,11 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import Loading from "./loading";
 
 
 export default function Home() {
+
+
   return (
     <main className="p-6">
+      {/* Test Header */}
+      
+
+
       {/* Header */}
       <section className="mb-10 text-center">
         <h1 className="text-3xl font-bold text-gray-800">Welcome to Artistly</h1>

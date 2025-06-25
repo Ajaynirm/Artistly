@@ -5,7 +5,7 @@ interface ArtistCardProps {
     category: string;
     priceRange: string;
     location: string;
-    onClick?: () => void; // Optional: e.g. "Ask for Quote" or any action
+    onClick?: () => void; 
   }
   
   export default function ArtistCard({
