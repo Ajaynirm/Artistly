@@ -67,107 +67,159 @@ export default function FilterBlock({categories = [],locations = [],languages= [
   }
 
   return (
-    <Card className="w-full max-w-sm p-2 ">
+    <Card className="w-full max-w-sm p-2 flex flex-col">
+
+
+
+<div className="flex flex-row justify-around lg:block">
+
 
       {/* Category Dropdown */}
       {categories.length > 0 && (
-        <div>
-          <label className="block mb-1 text-sm font-medium">Category</label>
-          <select
-            className="w-full border rounded px-3 py-2 text-sm"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">All</option>
-            {categories.map((c,ind) => (
-              <option key={ind} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+  <div>
+    <label className="block mb-1 text-sm font-medium">Category</label>
+    <Select
+      value={category !== undefined ? String(category) : "All"}
+      onValueChange={(value) => setCategory(value)}
+    >
+      <SelectTrigger className="w-full border rounded px-3 py-2 text-sm">
+        <SelectValue placeholder="Select Category" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Categories</SelectLabel>
+          <SelectItem value="All">All</SelectItem>
+          {categories.map((c, ind) => (
+            <SelectItem key={ind} value={c}>
+              {c}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  </div>
+)}
+
 
       {/* Location Dropdown */}
       {locations.length > 0 && (
-        <div>
-          <label className="block mb-1 text-sm font-medium">Location</label>
-          <select
-            className="w-full border rounded px-3 py-2 text-sm"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          >
-            <option value="">All</option>
-            {locations.map((loc,ind) => (
-              <option key={ind} value={loc}>
-                {loc}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-      
+  <div>
+    <label className="block mb-1 text-sm font-medium">Location</label>
+    <Select
+      value={location !== undefined ? String(location) : "All"}
+      onValueChange={(value) => setLocation(value)}
+    >
+      <SelectTrigger className="w-full border rounded px-3 py-2 text-sm">
+        <SelectValue placeholder="Select Location" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Locations</SelectLabel>
+          <SelectItem value="All">All</SelectItem>
+          {locations.map((loc, ind) => (
+            <SelectItem key={ind} value={loc}>
+              {loc}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  </div>
+)}
+
+</div>
+
+
+<div className="flex flex-row justify-around lg:block">
        {/* Language Dropdown */}
-       {locations.length > 0 && (
-        <div>
-          <label className="block mb-1 text-sm font-medium">Language</label>
-          <select
-            className="w-full border rounded px-3 py-2 text-sm"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            <option value="">All</option>
-            {languages.map((lang,ind) => (
-              <option key={ind} value={lang}>
-                {lang}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+       {languages.length > 0 && (
+  <div>
+    <label className="block mb-1 text-sm font-medium">Language</label>
+    <Select
+      value={language !== undefined ? String(language) : "All"}
+      
+      onValueChange={(value) => setLanguage(value)}
+    >
+      <SelectTrigger className="w-full border rounded px-3 py-2 text-sm">
+        <SelectValue placeholder="Select Language" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Languages</SelectLabel>
+          <SelectItem value="All">All</SelectItem>
+          {languages.map((lang, ind) => (
+            <SelectItem key={ind} value={lang}>
+              {lang}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  </div>
+)}
+
+
+
 
       {/* Price Start Dropdown */}
       {priceStarts.length > 0 && (
-        <div>
-          <label className="block mb-1 text-sm font-medium">Price Start</label>
-          <select
-            className="w-full border rounded px-3 py-2 text-sm"
-            value={priceStart ?? ''}
-            onChange={(e) =>
-              setPriceStart(e.target.value ? parseInt(e.target.value) : undefined)
-            }
-          >
-            <option value="">All</option>
-            {priceStarts.map((range: number,ind: number) => (
-              <option key={ind} value={range}>
-                {range}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+  <div>
+    <label className="block mb-1 text-sm font-medium">Price Start</label>
+    <Select
+      value={priceStart !== undefined ? String(priceStart) : "All"}
+      onValueChange={(value) =>
+        setPriceStart(value ? parseInt(value) : undefined)
+      }
+    >
+      <SelectTrigger className="w-full border rounded px-3 py-2 text-sm">
+        <SelectValue placeholder="Select Price Start" />
+        
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>Start From</SelectLabel>
+          <SelectItem value="All">All</SelectItem>
+          {priceStarts.map((range, ind) => (
+            <SelectItem key={ind} value={String(range)}>
+              ₹{range}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  </div>
+)}
+
 
       {/* Price End Dropdown */}
       {priceEnds.length > 0 && (
-        <div>
-          <label className="block mb-1 text-sm font-medium">Price End</label>
-          <select
-            className="w-full border rounded px-3 py-2 text-sm"
-            value={priceEnd ?? ''}
-            onChange={(e) =>
-              setPriceEnd(e.target.value ? parseInt(e.target.value) : undefined)
-            }
-          >
-            <option value="">All</option>
-            {priceEnds.map((range: number,ind:number) => (
-              <option key={ind} value={range}>
-                {range}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+  <div>
+    <label className="block mb-1 text-sm font-medium">Price End</label>
+    <Select
+      value={priceEnd !== undefined ? String(priceEnd) : "All"}
+      onValueChange={(value) =>
+        setPriceEnd(value ? parseInt(value) : undefined)
+      }
+    >
+      <SelectTrigger className="w-full border rounded px-3 py-2 text-sm">
+        <SelectValue placeholder="Select Price End" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectLabel>End At</SelectLabel>
+          <SelectItem value="All">All</SelectItem>
+          {priceEnds.map((range, ind) => (
+            <SelectItem key={ind} value={String(range)}>
+              ₹{range}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  </div>
+)}
 
+</div>
       <button
         onClick={handleFilter}
         className="w-full bg-blue-600 text-white py-2 text-sm rounded hover:bg-blue-700 transition"

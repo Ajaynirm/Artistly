@@ -102,7 +102,7 @@ export default function ArtistForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 max-w-xl mx-auto p-4"
+      className="flex flex-col space-y-6 max-w-xl mx-auto p-4 m-5"
     >
       <h2 className="text-2xl font-bold mb-4">Artist Onboarding</h2>
       {/* test name */}
@@ -244,45 +244,71 @@ export default function ArtistForm() {
 
       <div className="input border px-3 py-2 w-full block md:hidden">
         <Label className="block mb-1 p-2">Fee Range </Label>
+        
         <div className="flex flex-row justify-around">
-          <div className="input border px-3 py-2 w-40 ">
-            <select
-              {...register("feeRangeStart")}
-              className="input border px-3 py-2 w-full"
+          <div className="input  px-3 py-2 w-40 ">
+           
+             <Controller
+          name="feeRangeStart"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={(value) => field.onChange(parseInt(value))}
+              value={field.value ? String(field.value) : ""}
             >
-              <option value="">Start Fee</option>
-
-              {priceStarts.map((range) => (
-                <option key={range} value={range}>
-                  ₹{range}
-                </option>
-              ))}
-            </select>
-
-            {errors.feeRangeStart && (
-              <p className="text-red-500 text-sm p-2">
-                {errors.feeRangeStart.message}
-              </p>
-            )}
+              <SelectTrigger className="w-[130px]">
+                <SelectValue placeholder="Select fee start" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Fee Start Range</SelectLabel>
+                  {priceStarts.map((range) => (
+                    <SelectItem key={range} value={String(range)}>
+                      ₹{range}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
+        {errors.feeRangeStart && (
+          <p className="text-red-500 text-xs mt-1 p-2">
+            {errors.feeRangeStart.message}
+          </p>
+        )}
           </div>
 
-          <div className="input border px-3 py-2 w-40 ">
-            <select
-              {...register("feeRangeEnd")}
-              className="input border px-3 py-2 w-full"
+          <div className="input  px-3 py-2 w-40 ">
+          <Controller
+          name="feeRangeEnd"
+          control={control}
+          render={({ field }) => (
+            <Select
+              onValueChange={(value) => field.onChange(parseInt(value))}
+              value={field.value ? String(field.value) : ""}
             >
-              <option value="">End Fee</option>
-              {priceEnds.map((range) => (
-                <option key={range} value={range}>
-                  ₹{range}
-                </option>
-              ))}
-            </select>
-            {errors.feeRangeEnd && (
-              <p className="text-red-500 text-sm">
-                {errors.feeRangeEnd.message}
-              </p>
-            )}
+              <SelectTrigger className="w-[130px]">
+                <SelectValue placeholder="Select fee end" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Fee End Range</SelectLabel>
+                  {priceEnds.map((range) => (
+                    <SelectItem key={range} value={String(range)}>
+                      ₹{range}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
+        {errors.feeRangeEnd && (
+          <p className="text-red-500 text-xs mt-1 p-2">
+            {errors.feeRangeEnd.message}
+          </p>
+        )}
           </div>
         </div>
       </div>
@@ -298,7 +324,7 @@ export default function ArtistForm() {
               onValueChange={(value) => field.onChange(value)}
               value={field.value ? String(field.value) : ""}
             >
-              <SelectTrigger className="w-[500px]">
+              <SelectTrigger className="w-[250px] lg:w-[500px]">
                 <SelectValue placeholder="Select Location" />
               </SelectTrigger>
               <SelectContent>

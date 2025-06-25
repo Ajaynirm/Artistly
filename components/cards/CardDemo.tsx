@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { toast } from "sonner";
 
 type cardProps={
   name:string;
@@ -45,7 +46,16 @@ export function CardDemo({name,category,location,language, priceStart,priceEnd}:
       </CardContent>
         
       <CardFooter className="flex-col gap-2">
-        <Button  className="w-full">
+        <Button  className="w-full" 
+        onClick={()=>{
+          toast(`Quotation Request Send to Manager for ${category} Name ${name} From ${location}`,{
+            description: new Date().toLocaleString(),
+            position: "top-center",
+            duration: 10000,
+          });
+          
+        }}
+        >
           ASK QUOTE
         </Button>
       
