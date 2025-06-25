@@ -86,7 +86,7 @@ export default function ArtistForm() {
 
       console.log("Saved to localStorage:", updated);
 
-      toast("Form submitted successfully!", {
+      toast.success("Form submitted successfully!", {
         description: new Date().toLocaleString(),
         position: "top-center",
         duration: 10000,

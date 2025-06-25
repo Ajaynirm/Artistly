@@ -18,6 +18,11 @@ import { toast } from "sonner";
     location:string;
   }
   export function AlertDialogDemo({name,button_name,category,location}:props) {
+    name=name.toUpperCase();
+    button_name=button_name.toUpperCase();
+    category=category.toUpperCase();
+    location=location.toUpperCase();
+    
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
@@ -31,13 +36,13 @@ import { toast } from "sonner";
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={()=>toast("Quotation Request Cancelled",{
+            <AlertDialogCancel onClick={()=>toast.error("Quotation Request Cancelled",{
                  description: new Date().toLocaleString(),
                  position: "top-center",
                  duration: 10000,
             })}>Cancel</AlertDialogCancel>
             <AlertDialogAction  onClick={()=>{
-          toast(`Quotation Request Send to Manager for ${category} Name ${name} From ${location}`,{
+          toast.success(`Quotation Request Send to Manager for ${category} Name ${name} From ${location}`,{
             description: new Date().toLocaleString(),
             position: "top-center",
             duration: 5000,

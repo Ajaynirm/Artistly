@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button"
 import {
   Card
 } from "@/components/ui/card"
@@ -67,17 +66,17 @@ export default function FilterBlock({categories = [],locations = [],languages= [
   }
 
   return (
-    <Card className="w-full max-w-sm p-2 flex flex-col">
+    <Card className="w-full max-w-sm p-2 flex flex-col ">
 
 
 
-<div className="flex flex-row justify-around lg:block">
+<div className="flex flex-row justify-around md:block">
 
 
       {/* Category Dropdown */}
       {categories.length > 0 && (
-  <div>
-    <label className="block mb-1 text-sm font-medium">Category</label>
+  <div className="pb-2">
+    <Label className="block mb-1 text-sm font-medium">Category</Label>
     <Select
       value={category !== undefined ? String(category) : "All"}
       onValueChange={(value) => setCategory(value)}
@@ -103,8 +102,8 @@ export default function FilterBlock({categories = [],locations = [],languages= [
 
       {/* Location Dropdown */}
       {locations.length > 0 && (
-  <div>
-    <label className="block mb-1 text-sm font-medium">Location</label>
+  <div className="pb-2">
+    <Label className="block mb-1 text-sm font-medium">Location</Label>
     <Select
       value={location !== undefined ? String(location) : "All"}
       onValueChange={(value) => setLocation(value)}
@@ -130,11 +129,11 @@ export default function FilterBlock({categories = [],locations = [],languages= [
 </div>
 
 
-<div className="flex flex-row justify-around lg:block">
+<div className="flex flex-row justify-around md:block">
        {/* Language Dropdown */}
        {languages.length > 0 && (
-  <div>
-    <label className="block mb-1 text-sm font-medium">Language</label>
+  <div className="pb-2">
+    <Label className="block mb-1 text-sm font-medium">Language</Label>
     <Select
       value={language !== undefined ? String(language) : "All"}
       
@@ -163,8 +162,8 @@ export default function FilterBlock({categories = [],locations = [],languages= [
 
       {/* Price Start Dropdown */}
       {priceStarts.length > 0 && (
-  <div>
-    <label className="block mb-1 text-sm font-medium">Price Start</label>
+  <div className="pb-2">
+    <Label className="block mb-1 text-sm font-medium">Price Start</Label>
     <Select
       value={priceStart !== undefined ? String(priceStart) : "All"}
       onValueChange={(value) =>
@@ -193,8 +192,8 @@ export default function FilterBlock({categories = [],locations = [],languages= [
 
       {/* Price End Dropdown */}
       {priceEnds.length > 0 && (
-  <div>
-    <label className="block mb-1 text-sm font-medium">Price End</label>
+  <div className="pb-2">
+    <Label className="block mb-1 text-sm font-medium">Price End</Label>
     <Select
       value={priceEnd !== undefined ? String(priceEnd) : "All"}
       onValueChange={(value) =>
