@@ -6,15 +6,19 @@ import {
   AlertTitle,
 } from "@/components/ui/alert"
 
-export function AlertDemo() {
+type props={
+  name:string;
+}
+
+export function AlertDemo({name}:props) {
   return (
     <div className="grid w-full max-w-xl items-start gap-4">
      
       <Alert variant="destructive">
         <AlertCircleIcon />
-        <AlertTitle>No Artist found based on filter</AlertTitle>
+        <AlertTitle>{name}</AlertTitle>
         <AlertDescription>
-          <p>Please change the filter and try again.</p>
+          <p>Something Went Wrong, try again.</p>
          
         </AlertDescription>
       </Alert>

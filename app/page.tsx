@@ -44,9 +44,11 @@ export default function Home() {
           <p className=" m-2 text-white-600">
             Connecting Event Planners with top Artists effortlessly.
           </p>
-          <button className="m-5 p-5 border rounded-2xl hover:border-gray-600 border-gray-500 lg:p-5 lg:m-10">
-            <Link href={"/artists"}>Explore Artists</Link>
+          <Link href={"/artists"}>
+          <button className="m-5 p-5 border md:w-100 rounded-2xl hover:border-gray-600 border-gray-500 lg:p-5 lg:m-10">
+            Explore Artists
           </button>
+          </Link>
         </section>
 
         {/* CTA */}

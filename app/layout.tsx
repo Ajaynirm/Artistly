@@ -3,10 +3,10 @@
 import './globals.css';
 import Link from "next/link";
 import { Toaster } from "@/components/ui/sonner"
-import { ThemeProvider } from "@/components/theme-provider";
-import { ModeToggle } from "@/components/ModeToggle";
-import { NavigationMenuDemo } from "@/components/NavBar";
-import { MenubarDemo } from "@/components/MenuBar";
+import { ThemeProvider } from "@/components/essentialUi/theme-provider";
+import { ModeToggle } from "@/components/essentialUi/ModeToggle";
+import { NavigationMenuDemo } from "@/components/essentialUi/NavBar";
+import { MenubarDemo } from "@/components/essentialUi/MenuBar";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -31,7 +31,11 @@ import {
             <Link href={'/onboard'}>Add Artist</Link>
             </MenubarItem>
             
-           
+            <MenubarSeparator />
+            <MenubarItem >
+              
+            <Link href={'/manager'}>Manager</Link>
+            </MenubarItem>
         
            
           </MenubarContent>
